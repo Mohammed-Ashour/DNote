@@ -13,13 +13,16 @@ import sqlite3
 from datetime import datetime
 import os 
 #if not os.path.exists('notes.db'):
-conn = sqlite3.connect("notes.db")
-c = conn.cursor()
+
 
 class Data(object):
-    def __init__(self, name, db_cursor = None):
-        self.name = name
-        self.cursor = c
+    def __init__(self):
+        try:
+            conn = sqlite3.connect("notes.db")
+            self.cursor = conn.cursor()
+        except err as ConnectionError:
+            raise err
+
         try:
             self.cursor.execute( '''CREATE TABLE IF NOT EXISTS my_notes
                 (name text PRIMARY KEY ,  date text, tag text, path text)''')
@@ -28,6 +31,9 @@ class Data(object):
         except ConnectionError as err :
             self.close_conn()
             raise err
+
+        
+         
 
     def create(self, name, tag, path, time):
         '''

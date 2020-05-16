@@ -28,9 +28,20 @@ table notes
 
 
 '''
+
+
+'''
+TODO
+    - create the database, tables if not existed 
+    - check the config file
+    - install the required packages
+
+'''
 from database import Data
 from note_handler import NoteHandeler
 
+#creating the database 
+my_data = Data("notes")
 
 x = NoteHandeler()
 x.create_note("bla", "msc")

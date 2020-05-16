@@ -6,11 +6,14 @@ import pathlib
 from database import Data
 from datetime import datetime
 
-data_obj = Data('notes')
+data_obj = Data()
 
 
 '''
 File naming  = tag_name_date
+
+TODO
+    - edit function
 
 '''
 class NoteHandeler(object):
@@ -84,6 +87,5 @@ class NoteHandeler(object):
             return False
             
 
-    pass
 
 
