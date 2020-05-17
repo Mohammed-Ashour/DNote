@@ -28,7 +28,8 @@ class NoteHandeler(object):
     def create_note(self, name, tag):
         #new_note = Note(name, tag)
         now = datetime.now()
-        time = now.strftime("%d-%m-%y-%H-%M-%S")
+        time = now.strftime("%d-%m-%y")
+        #need to check if it's already exists in the database
         filename = tag + "_" + name + "_" + time
         with open(filename+".txt", "w") as f:
             f.write(str(time))
@@ -66,9 +67,46 @@ class NoteHandeler(object):
             print("The file doesn't exist!!")
             return False
         
-    def edit_note(self, parameter_list):
-        pass
-    
+    def update_note(self, name, new_name=None, new_tag=None):
+        try:
+            data = data_obj.search_by_name(name, mode="strict")
+            flag = len(list(data)) == True
+            print(list(data))
+            name_split = name.split("_")
+            print(new_name, name_split[1])
+            if new_name and (name_split[1] == new_name):
+                print("You are using the same old name")
+                return False
+            
+            for i in data: print(i)
+            if flag:
+                print("---------------")
+               
+                new_file_name = ""
+                if new_name and not new_tag :
+                    new_file_name = "_".join((name_split[0], new_name, name_split[2]))
+                    if data_obj.search_by_name(new_file_name, mode="strict"):
+                        print("The Name is already taken for a previous note, plz choose another name!")
+                        return False
+                    data_obj.update(name, new_name=new_file_name)
+                elif new_tag and not new_name:
+                    new_file_name = "_".join((new_tag, name_split[1], name_split[2]))
+                    if data_obj.search_by_name(new_file_name, mode="strict"):
+                        print("The Name is already taken for a previous note, plz choose another name!")
+                        return False
+                    data_obj.update(name, new_name=new_file_name, new_tag=new_tag)
+                elif new_name and new_tag:
+                    new_file_name = "_".join((new_tag, new_name, name_split[2]))
+                    if data_obj.search_by_name(new_file_name, mode="strict"):
+                        print("The Name is already taken for a previous note, plz choose another name!")
+                        return False
+                    data_obj.update(name, new_name=new_file_name, new_tag=new_tag)
+                    print(list(data))
+                os.rename(str(pathlib.Path(list(data)[0][-1], name).with_suffix(".txt")),\
+                    str(pathlib.Path(list(data)[0][-1], new_file_name).with_suffix(".txt")))
+        except ConnectionError as err:
+            raise err
+       
     def check_if_exists(self,name, path):
         total_path = pathlib.Path(path, name).with_suffix(".txt")
         print(">>")
