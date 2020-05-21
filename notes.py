@@ -91,15 +91,14 @@ help_msg = '''
     notes.py <command> [arguments]
     options that you have in this script 
     - notes create lec1 -- tag master 
-    - notes update lec2 --tag master --newtag msc
-    - notes update lec2 --tag msc --newname lec3 --newtag msc
-    - notes view lec4 --tag master [--op and]  
-    - notes open lec4 --tag master   --month 5
-        - view items with indexes
-        -ask which one (index) you wanna open
-    - notes delete lec4 --tag master --month 5
-        - view items with indexes
-        -ask which one (index) you wanna delete
+    - notes update  Bla_Lec3_17-05-20 --newtag msc
+    - notes update  Bla_Lec3_17-05-20 --newname lec3 --newtag msc
+    - notes show lec4 --bytag
+    - notes show notes --bydate
+    - notes show all --bydate
+    - notes open Bla_Lec3_17-05-20
+    - notes delete Bla_Lec3_17-05-20
+        
 
     '''
 
