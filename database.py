@@ -48,12 +48,39 @@ class Data(object):
             self.close_conn()
             raise err
 
-    def display(self):
+    def display(self, name=None, by_date=False, by_name=False, by_tag=False):
         '''
         display all the records in the my_notes table
         '''
+        q = ""
+        if name:
+            if by_date:
+                q = "SELECT * FROM my_notes WHERE name like ? order by DATE DESC"
+            elif by_name:
+                q = "SELECT * FROM my_notes WHERE name like ? order by NAME ASC"
+            elif by_tag:
+                q = "SELECT * FROM my_notes WHERE name like ? order by TAG ASC"
+            else: 
+                q = "SELECT * FROM my_notes WHERE name like ? order by NAME ASC"
+        else:
+            if by_date:
+                q = "SELECT * FROM my_notes order by DATE DESC"
+            elif by_name:
+                q = "SELECT * FROM my_notes order by NAME ASC"
+            elif by_name:
+                q = "SELECT * FROM my_notes order by TAG ASC"
+            else:
+                q = "SELECT * FROM my_notes order by NAME ASC"
+        #print(q)
         try:
-            data = self.cursor.execute('SELECT * FROM my_notes' ).fetchall()
+            if name is not None :
+                #print(name)
+                name = "%" + name + "%"
+                name = (name,)
+                data = self.cursor.execute(q,name).fetchall()
+                
+            else: 
+                data = self.cursor.execute(q).fetchall()
             return data
         except ConnectionError as err:
             self.close_conn()
@@ -121,7 +148,6 @@ class Data(object):
         else:
             raise ConnectionError
 
-        pass
     def delete(self, file_name):
         note = (file_name,)
         try:

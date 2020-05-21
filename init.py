@@ -44,9 +44,16 @@ from note_handler import NoteHandeler
 my_data = Data()
 
 x = NoteHandeler()
-#x.create_note("bla", "msc")
-print("-----")
-x.search_by_tag(tag="bla")
-#x.open_note("bla14-05-20-18-43-02", "E:\\projects\\Terminal Notes")
-#x.delete_note("msc_bla_14-05-20-19-54-38", "E:\projects\Terminal Notes\\")
-x.update_note("Bla_Lec3_17-05-20", new_name="Lec2", new_tag = "Bla")
+
+#check for config file:
+import json
+
+with open('./config.json') as json_file:
+    data = json.load(json_file)
+
+# #x.create_note("bla", "msc")
+# print("-----")
+# x.search_by_tag(tag="bla")
+# #x.open_note("bla14-05-20-18-43-02", "E:\\projects\\Terminal Notes")
+# #x.delete_note("msc_bla_14-05-20-19-54-38", "E:\projects\Terminal Notes\\")
+# x.update_note("Bla_Lec3_17-05-20", new_name="Lec2", new_tag = "Bla")
