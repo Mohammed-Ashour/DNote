@@ -21,7 +21,12 @@ This a simple notes app that enables you to manage, add, delete, search and filt
             - notes delete Bla_Lec3_17-05-20
      ```
 
-
+## Installation
+run
+```
+python setup.py build
+python setup.py install
+```
 ## License
 
 This project is licensed under the MIT License 
