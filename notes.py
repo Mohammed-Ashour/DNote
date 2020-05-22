@@ -103,6 +103,8 @@ help_msg = '''
     '''
 
 def main():
+    import ipdb; ipdb.set_trace()
+    
     p = argparse.ArgumentParser(add_help=False, description= " notes management system", usage=help_msg)
     # p.add_argument("open")
     # p.add_argument("create")
@@ -126,4 +128,4 @@ def main():
     #print(p.parse_args())
 
 
-main()
+#main()
