@@ -11,14 +11,16 @@ Note File naming system Msc_subject_date
 '''
 import sqlite3
 from datetime import datetime
-import os 
+import os , pathlib
 #if not os.path.exists('notes.db'):
 
 
 class Data(object):
     def __init__(self):
         try:
-            self.conn = sqlite3.connect("notes.db")
+            db_file_loaction =  str(pathlib.Path(pathlib.Path(__file__).parent.absolute(), "notes").with_suffix(".db")) 
+            #print(type(db_file_loaction), db_file_loaction)
+            self.conn = sqlite3.connect(db_file_loaction)
             self.cursor = self.conn.cursor()
         except ConnectionError as err :
             raise err
