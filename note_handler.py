@@ -7,7 +7,7 @@ from database import Data
 from datetime import datetime
 import json 
 data = ""
-with open('.\config.json') as json_file:
+with open(str(pathlib.Path(pathlib.Path(__file__).parent.absolute(), "config").with_suffix(".json")) ) as json_file:
     data = json.load(json_file)
 edit_prog = data["edit_prog"]
 
