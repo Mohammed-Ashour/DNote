@@ -18,6 +18,7 @@ TODO
     - add the args actions Done
     - add args help msgs Done 
     - config file integration Done
+    - adding zip files for all the file or filtered ones
 
 '''
 
@@ -33,7 +34,6 @@ def arg_handeler(args:list, parser):
     if args == []: return False
     if len(args) > 1:  
         p_args = parser.parse_args(args[1:])
-
         if p_args.command == "create":
             if p_args.name and p_args.tag:
                 handler.create_note(p_args.name, p_args.tag)
@@ -59,7 +59,14 @@ def arg_handeler(args:list, parser):
             else:
                 parser.print_help()
             
-
+        elif args[1] == "zip":
+            if p_args.name:
+                if p_args.name == "all":
+                    handler.zip_notes()
+                elif p_args.name == "notes" and p_args.tag:
+                    handler.zip_notes(p_args.tag)
+            else:
+                parser.print_help()
         elif args[1] ==  "delete":
             if p_args.name:
                 handler.delete_note(p_args.name)
@@ -98,6 +105,8 @@ help_msg = '''
     - notes show all --bydate
     - notes open Bla_Lec3_17-05-20
     - notes delete Bla_Lec3_17-05-20
+    - notes zip all
+    - notes zip notes --tag msc
         
 
     '''

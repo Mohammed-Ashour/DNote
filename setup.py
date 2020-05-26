@@ -20,7 +20,8 @@ setup(name='notes',
     'console_scripts': [ 
         'notes = notes:main' 
     ] 
-})
+}
+)
 
 
 

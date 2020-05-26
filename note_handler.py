@@ -6,6 +6,7 @@ import pathlib
 from database import Data
 from datetime import datetime
 import json 
+from zipfile import ZipFile
 data = ""
 with open(str(pathlib.Path(pathlib.Path(__file__).parent.absolute(), "config").with_suffix(".json")) ) as json_file:
     data = json.load(json_file)
@@ -101,7 +102,28 @@ class NoteHandeler(object):
         else : 
             print("The file doesn't exist!!")
             return False
-        
+    def zip_notes(self, tag=None):
+        now = datetime.now()
+        time = now.strftime("%d-%m-%y")
+        zip_file_location = pathlib.Path(os.getcwd(), "notes_"+time+".txt").with_suffix(".zip")
+        notes = None
+        if tag:
+            notes = data_obj.search_by_tag(tag, mode="like") 
+            
+        else:
+            notes = self.show_notes()
+
+        with ZipFile(zip_file_location , 'w') as zip_notes:
+            for i in notes:
+                path = i[-1]
+                name = i[0]
+                if self.check_if_exists(name, path):
+                    full_path =  str(pathlib.Path(path, name).with_suffix(".txt"))
+                    zip_notes.write(full_path)
+                else : 
+                    print(path + name + "Not found!!")
+                    continue
+            print("Done..")
     def update_note(self, name, new_name=None, new_tag=None):
         try:
             data = data_obj.search_by_name(name, mode="exact")
