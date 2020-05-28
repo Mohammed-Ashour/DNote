@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='notes',
+setup(name='dnote',
       version='0.1',
       description='A program used to manage your notes and organize them across your machine.',
       url='https://github.com/Mohammed-Ashour/Notes_Management_System',
@@ -18,7 +18,7 @@ setup(name='notes',
       zip_safe=False,
       entry_points={
     'console_scripts': [ 
-        'notes = notes:main' 
+        'dnote = notes:main' 
     ] 
 }
 )
