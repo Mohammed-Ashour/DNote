@@ -7,18 +7,23 @@ This a simple notes app that enables you to manage, add, delete, search and filt
 - Using a Sqlite database to help in searching and tracking your notes
 - uses simple commands to help you do whatever you want easily 
 - using a help docs
+- Backup all your notes or (Filtered ones) in a zip folder **(new)**
+- Restore all your backed-up notes from your un-zipped backup folder **(new)**
 
     ```
-           notes.py <command> [arguments]
-            options that you have in this script 
-            - notes create lec1 -- tag master 
-            - notes update  Bla_Lec3_17-05-20 --newtag msc
-            - notes update  Bla_Lec3_17-05-20 --newname lec3 --newtag msc
-            - notes show lec4 --bytag
-            - notes show notes --bydate
-            - notes show all --bydate
-            - notes open Bla_Lec3_17-05-20
-            - notes delete Bla_Lec3_17-05-20
+              notes.py <command> [arguments]
+              options that you have in this script 
+              - notes create lec1 -- tag master 
+              - notes update  Bla_Lec3_17-05-20 --newtag msc
+              - notes update  Bla_Lec3_17-05-20 --newname lec3 --newtag msc
+              - notes show lec4 --bytag
+              - notes show notes --bydate
+              - notes show all --bydate
+              - notes open Bla_Lec3_17-05-20
+              - notes delete Bla_Lec3_17-05-20
+              - notes zip all
+              - notes zip notes --tag msc
+              - notes restore <folder_path>   #restores all the backed-up notes from your un-zipped backup folder 
      ```
 
 ## Installation

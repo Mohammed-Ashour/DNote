@@ -1,28 +1,15 @@
-'''
-the interface of our app
-    - notes create  lec1 --tag master 
-    - notes update test_x_21-05-20  --newtag msc
-    - notes view lec4 --tag master [--op and]  
-    - notes open lec4 --tag master   --month 5
-        - view items with indexes
-        -ask which one (index) you wanna open
-    - notes delete lec4 --tag master --month 5
-        - view items with indexes
-        -ask which one (index) you wanna delete
-    - notes show lec4 --bytag
-        - notes show notes --bydate
-        -  notes show all --bydate
-'''
+
 '''
 TODO
     - add the args actions Done
     - add args help msgs Done 
     - config file integration Done
-    - adding zip files for all the file or filtered ones
+    - adding zip files for all the file or filtered ones Done
+    - Add Backup and restore feature Done
 
 '''
 
-import sys, getopt, argparse
+import sys, getopt, argparse,os
 from note_handler import NoteHandeler
 from tabulate import tabulate
 handler = NoteHandeler()
@@ -72,6 +59,15 @@ def arg_handeler(args:list, parser):
                 handler.delete_note(p_args.name)
             else:
                 parser.print_help()
+
+        elif args[1] == "restore":
+            print(p_args.name, os.path.isdir(p_args.name))
+            if os.path.isdir(p_args.name):
+                handler.resotre(p_args.name)
+            else :
+                print("path is not valid, also check these ")
+                parser.print_help()
+
         elif args[1] == "show":
             if p_args.name == "all":
                 if p_args.bydate:
@@ -107,6 +103,7 @@ help_msg = '''
     - notes delete Bla_Lec3_17-05-20
     - notes zip all
     - notes zip notes --tag msc
+    - notes restore <folder_path>   #restores all the backed-up notes from your un-zipped backup folder 
         
 
     '''
@@ -114,10 +111,6 @@ help_msg = '''
 def main():
     
     p = argparse.ArgumentParser(add_help=False, description= " notes management system", usage=help_msg)
-    # p.add_argument("open")
-    # p.add_argument("create")
-    # p.add_argument("delete")
-    # p.add_argument("edit")
     p.add_argument("command")
     p.add_argument("name")
     p.add_argument("--newname")
@@ -129,11 +122,6 @@ def main():
 
     
     arg_handeler(sys.argv, p)
-   # p.add_argument("-h", "--help", action="help", default=argparse.SUPPRESS,help=help_msg)
-
-    # opts, args = getoptg.etopt(sys.argv, "hi:o:", ["help", "tag", "newtag", "month"])
-    #print(sys.argv, opts, args, sys.argv == args)
-    #print(p.parse_args())
 
 
-#main()
+

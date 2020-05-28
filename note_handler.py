@@ -7,6 +7,7 @@ from database import Data
 from datetime import datetime
 import json 
 from zipfile import ZipFile
+import glob
 data = ""
 with open(str(pathlib.Path(pathlib.Path(__file__).parent.absolute(), "config").with_suffix(".json")) ) as json_file:
     data = json.load(json_file)
@@ -124,6 +125,7 @@ class NoteHandeler(object):
                     print(path + name + "Not found!!")
                     continue
             print("Done..")
+
     def update_note(self, name, new_name=None, new_tag=None):
         try:
             data = data_obj.search_by_name(name, mode="exact")
@@ -170,6 +172,23 @@ class NoteHandeler(object):
             return True
         else:
             return False
+    
+    def resotre(self, folder):
+        '''
+        - takes a folder of already backed-up notes, 
+        - parse it for txt file with the naming convention tag_name_date.txt
+        - and adds it to the database
+
+        '''
+        for filename in glob.iglob(str(pathlib.Path(folder, "**", "*_*_*.txt")), recursive=True):
+            filename_head_tail = os.path.split(filename)
+            path = filename_head_tail[0]
+            filename = filename_head_tail[1].split(".")[0]
+            tag = filename.split("_")[0]
+            date = filename.split("_")[-1]
+            data_obj.create(filename,tag, path, date)
+        
+
 
     def open_note(self, name):
         notes = data_obj.search_by_name(name,mode="exact")
