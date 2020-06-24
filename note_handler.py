@@ -64,6 +64,7 @@ class NoteHandeler(object):
         path = os.getcwd()
         data_obj.create(filename, tag, path, time)
         data_obj.display()
+        self.open_note(filename)
         
 
     # def search_by_tag(self,tag):
